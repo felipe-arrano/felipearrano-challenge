@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: 'postgres:15-alpine'
+    container_name: tenpo_challenge_postgres
+    environment:
+      - 'POSTGRES_DB=history_db'
+      - 'POSTGRES_USER=challenge_user'
+      - 'POSTGRES_PASSWORD=EZh6QsAvNv0secfm16ArcBq9ikKCJC+G'
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

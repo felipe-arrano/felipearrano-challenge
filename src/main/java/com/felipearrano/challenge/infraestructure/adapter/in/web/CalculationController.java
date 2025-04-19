@@ -2,8 +2,8 @@ package com.felipearrano.challenge.infraestructure.adapter.in.web;
 
 import com.felipearrano.challenge.application.port.in.CalculateSumUseCasePort;
 import com.felipearrano.challenge.infraestructure.adapter.in.web.dto.CalculationResponse;
-import jakarta.validation.constraints.DecimalMin; // Para validación
-import jakarta.validation.constraints.NotNull; // Para validación
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

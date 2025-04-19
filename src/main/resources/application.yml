@@ -9,6 +9,17 @@ spring:
       - percentageCache
     caffeine:
       spec: expireAfterWrite=30m
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/history_db
+    username: challenge_user
+    password: EZh6QsAvNv0secfm16ArcBq9ikKCJC+G
+    pool:
+      enabled: true
+      initial-size: 5
+      max-size: 10
+  sql:
+    init:
+      mode: always
 
 resilience4j.retry:
   instances:
