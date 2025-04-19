@@ -49,7 +49,7 @@ public class CalculateSumUseCase implements CalculateSumUseCasePort {
 
                     return Mono.just(result);
                 })
-                .doOnError(error -> log.error("Error durante el cálculo: {}", error.getMessage())) 
+                .doOnError(error -> log.error("Error durante el cálculo: {}", error.getMessage()))
                 .doOnSuccess(result -> log.info("Cálculo completado exitosamente con resultado: {}", result));
     }
 }

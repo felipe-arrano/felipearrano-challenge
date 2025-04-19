@@ -4,3 +4,8 @@ server:
 spring:
   application:
     name: felipearrano-challenge-api
+  cache:
+    cache-names:
+      - percentageCache
+    caffeine:
+      spec: expireAfterWrite=30m
