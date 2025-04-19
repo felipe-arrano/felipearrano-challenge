@@ -9,3 +9,26 @@ spring:
       - percentageCache
     caffeine:
       spec: expireAfterWrite=30m
+
+resilience4j.retry:
+  instances:
+    percentageService:
+      maxAttempts: 3
+      waitDuration: 500ms
+      retryExceptions:
+        - java.lang.RuntimeException
+        - java.util.concurrent.TimeoutException
+
+resilience4j.circuitbreaker:
+  instances:
+    percentageService:
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
+      slidingWindowSize: 10
+      failureRateThreshold: 50
+      minimumNumberOfCalls: 5
+      waitDurationInOpenState: 10s
+      permittedNumberOfCallsInHalfOpenState: 2
+      recordExceptions:
+        - java.lang.RuntimeException
+        - java.util.concurrent.TimeoutException
