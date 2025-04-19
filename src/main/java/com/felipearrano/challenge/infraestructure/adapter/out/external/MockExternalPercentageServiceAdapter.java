@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.infraestructure.adapter.external;
+package com.felipearrano.challenge.infraestructure.adapter.out.external;
 
 import com.felipearrano.challenge.application.port.out.ExternalPercentageServicePort;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
@@ -11,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import java.time.Duration;
-import java.util.Optional;
-import java.util.concurrent.TimeoutException; // Ejemplo de excepción a registrar
 
 @Component
 public class MockExternalPercentageServiceAdapter implements ExternalPercentageServicePort {
