@@ -1,7 +1,7 @@
-package com.felipearrano.challenge.infraestructure.adapter.in.web;
+package com.felipearrano.challenge.infrastructure.adapter.in.rest;
 
-import com.felipearrano.challenge.application.port.in.CalculateSumUseCasePort;
-import com.felipearrano.challenge.infraestructure.adapter.in.web.dto.CalculationResponse;
+import com.felipearrano.challenge.domain.port.in.CalculateSumUseCasePort;
+import com.felipearrano.challenge.infrastructure.adapter.in.rest.dto.CalculationResponse;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;

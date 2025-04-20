@@ -1,7 +1,7 @@
 package com.felipearrano.challenge.application.usecase;
 
-import com.felipearrano.challenge.application.port.in.CalculateSumUseCasePort;
-import com.felipearrano.challenge.application.port.out.ExternalPercentageServicePort;
+import com.felipearrano.challenge.domain.port.in.CalculateSumUseCasePort;
+import com.felipearrano.challenge.domain.port.out.ExternalPercentageServicePort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

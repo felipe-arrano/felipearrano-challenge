@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.infraestructure.adapter.in.web.dto;
+package com.felipearrano.challenge.infrastructure.adapter.in.rest.dto;
 
 import java.math.BigDecimal;
 

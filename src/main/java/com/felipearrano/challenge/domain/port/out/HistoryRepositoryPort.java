@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.application.port.out;
+package com.felipearrano.challenge.domain.port.out;
 
 import com.felipearrano.challenge.domain.model.HistoryLog;
 import org.springframework.data.domain.Page;

@@ -1,6 +1,6 @@
-package com.felipearrano.challenge.infraestructure.adapter.out.external;
+package com.felipearrano.challenge.infrastructure.adapter.out.external;
 
-import com.felipearrano.challenge.application.port.out.ExternalPercentageServicePort;
+import com.felipearrano.challenge.domain.port.out.ExternalPercentageServicePort;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOperator;

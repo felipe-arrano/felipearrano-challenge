@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.application.port.in;
+package com.felipearrano.challenge.domain.port.in;
 
 import reactor.core.publisher.Mono;
 
