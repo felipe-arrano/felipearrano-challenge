@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.infrastructure.config; // O el paquete que prefieras
+package com.felipearrano.challenge.infrastructure.config;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

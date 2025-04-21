@@ -103,7 +103,6 @@ public class GlobalExceptionHandler {
         return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse));
     }
 
-    // Manejador genérico para cualquier otra excepción no capturada antes
     @ExceptionHandler(Exception.class)
     public Mono<ResponseEntity<ErrorResponse>> handleGenericException(Exception ex, ServerWebExchange exchange) {
         log.error("Error inesperado en la aplicación: {}", ex.getMessage(), ex); // Loguea el stack trace completo

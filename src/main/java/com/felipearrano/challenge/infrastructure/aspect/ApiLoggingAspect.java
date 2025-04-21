@@ -27,7 +27,7 @@ public class ApiLoggingAspect {
     private final Logger log = LoggerFactory.getLogger(ApiLoggingAspect.class);
     private final AsyncHistoryLoggerService loggerService;
     private final JsonSerializationUtil jsonSerializationUtil;
-    private final EndpointPathUtil endpointPathUtil; // <-- Inyecta nueva utilidad
+    private final EndpointPathUtil endpointPathUtil;
 
     public ApiLoggingAspect(AsyncHistoryLoggerService loggerService,
                             JsonSerializationUtil jsonSerializationUtil,

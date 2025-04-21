@@ -19,7 +19,7 @@ public class AsyncHistoryLoggerService {
 
     @Async
     public void logApiCall(HistoryLog historyLogData){
-        log.info("Llamada asíncrona para guardar log: {}", historyLogData.id());
+        log.info("Llamada asíncrona para guardar log de llamada a API: {}", historyLogData.id());
 
         try {
             historyRepositoryPort.saveLog(historyLogData)

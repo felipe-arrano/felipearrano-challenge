@@ -1,7 +1,7 @@
 package com.felipearrano.challenge.application;
 
 import com.felipearrano.challenge.application.port.in.GetHistoryUseCase;
-import com.felipearrano.challenge.application.port.out.HistoryRepositoryPort; // Importa el puerto de SALIDA
+import com.felipearrano.challenge.application.port.out.HistoryRepositoryPort;
 import com.felipearrano.challenge.domain.HistoryLog;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
