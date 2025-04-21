@@ -1,7 +1,6 @@
 package com.felipearrano.challenge.application;
 
 import com.felipearrano.challenge.application.port.out.PercentageServicePort;
-import com.felipearrano.challenge.application.port.in.CalculateSumUseCase;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

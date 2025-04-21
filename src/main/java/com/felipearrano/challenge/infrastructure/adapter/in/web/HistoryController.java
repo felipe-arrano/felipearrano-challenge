@@ -11,12 +11,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Min;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +32,10 @@ public class HistoryController {
 
     private static final Logger log = LoggerFactory.getLogger(HistoryController.class);
 
-    private final GetHistoryUseCase getHistoryUseCasePort;
+    private final GetHistoryUseCase getHistoryUseCase;
 
-    public HistoryController(GetHistoryUseCase getHistoryUseCasePort){
-        this.getHistoryUseCasePort = getHistoryUseCasePort;
+    public HistoryController(GetHistoryUseCase getHistoryUseCase){
+        this.getHistoryUseCase = getHistoryUseCase;
     }
 
     @Operation(
@@ -58,46 +58,21 @@ public class HistoryController {
     })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<Page<HistoryLog>>> getHistory(
-            @Parameter(description = "Número de página a recuperar (basado en 0)", example = "0") // Documenta con @Parameter
-            @RequestParam(name = "page", defaultValue = "0") int page,
+            @Parameter(description = "Número de página a recuperar (basado en 0).", example = "0")
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @Parameter(description = "Número de elementos por página.", example = "10")
+            @RequestParam(defaultValue = "10") @Min(1) int size
+    ){
+        log.info("Recibida solicitud GET /history con page={}, size={}", page, size);
 
-            @Parameter(description = "Número de elementos por página", example = "10") // Documenta con @Parameter
-            @RequestParam(name = "size", defaultValue = "20") int size,
+        Pageable pageable = PageRequest.of(page, size);
 
-            @Parameter(description = "Criterio de ordenamiento (propiedad[,asc|desc]). Ej: timestamp,desc", example = "timestamp,desc") // Documenta con @Parameter
-            @RequestParam(name = "sort", required = false) String sort){
-
-        log.info("Recibida solicitud GET /history con page={}, size={}, sort='{}'", page, size, sort);
-
-        Pageable pageable = buildPageable(page, size, sort);
-
-        return getHistoryUseCasePort.getHistory(pageable)
+        return getHistoryUseCase.getHistory(pageable)
                 .map(p -> {
                     log.info("Historial encontrado. Devolviendo página {} de {} con {} elementos (total {}).",
                             p.getNumber(), p.getTotalPages(), p.getNumberOfElements(), p.getTotalElements());
                     return ResponseEntity.ok(p);
                 })
                 .doOnError(error -> log.error("Error al obtener historial paginado: {}", error.getMessage()));
-    }
-
-    private Pageable buildPageable(int page, int size, String sort) {
-        Pageable pageable;
-        if (sort != null && !sort.isBlank()) {
-            try {
-                String[] sortParams = sort.split(",");
-                String property = sortParams[0];
-                Sort.Direction direction = (sortParams.length > 1)
-                        ? Sort.Direction.fromString(sortParams[1].toUpperCase())
-                        : Sort.DEFAULT_DIRECTION;
-                pageable = PageRequest.of(page, size, Sort.by(direction, property));
-            } catch (Exception e) {
-                log.warn("Parámetro sort inválido '{}', usando paginación sin orden. Error: {}", sort, e.getMessage());
-                pageable = PageRequest.of(page, size);
-            }
-        } else {
-            pageable = PageRequest.of(page, size);
-        }
-        log.debug("Pageable construido: {}", pageable);
-        return pageable;
     }
 }

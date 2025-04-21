@@ -33,10 +33,6 @@ public class CalculateSumService implements CalculateSumUseCase {
         return percentageServicePort.getPercentage()
                 .flatMap(percentage -> {
                     log.info("Porcentaje obtenido: {}%", percentage);
-                    if (percentage == null) {
-                        log.error("El servicio externo devolvió un porcentaje nulo.");
-                        return Mono.error(new IllegalStateException("Porcentaje obtenido es nulo."));
-                    }
 
                     BigDecimal sum = num1.add(num2);
 

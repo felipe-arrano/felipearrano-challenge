@@ -62,10 +62,10 @@ public class CalculationController {
     })
     @GetMapping(value = "/sum-with-percentage", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<CalculationResponse>> calculate(
-            @Parameter(description = "Primer número para la suma. Debe ser no negativo.", required = true, example = "10.5")
+            @Parameter(description = "Primer número para la suma. Debe ser positivo.", required = true, example = "10.5")
             @RequestParam @NotNull @DecimalMin(value = "0.0", inclusive = true, message = "num1 debe ser positivo o cero") BigDecimal num1,
 
-            @Parameter(description = "Segundo número para la suma. Debe ser no negativo.", required = true, example = "20.0")
+            @Parameter(description = "Segundo número para la suma. Debe ser positivo.", required = true, example = "20.0")
             @RequestParam @NotNull @DecimalMin(value = "0.0", inclusive = true, message = "num2 debe ser positivo o cero") BigDecimal num2) {
 
         log.info("Recibida solicitud GET /sum-with-percentage con num1={}, num2={}", num1, num2);
