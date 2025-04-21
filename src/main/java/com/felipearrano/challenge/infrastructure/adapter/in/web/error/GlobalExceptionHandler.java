@@ -92,20 +92,15 @@ public class GlobalExceptionHandler {
     // Manejador para nuestro error específico de servicio externo + caché vacía
     @ExceptionHandler(PercentageServiceUnavailableException.class)
     public Mono<ResponseEntity<ErrorResponse>> handleServiceUnavailable(PercentageServiceUnavailableException ex, ServerWebExchange exchange) {
-        // Identificar si es error específico de fallback fallido
-        if (ex.getMessage() != null && ex.getMessage().contains("servicio externo no disponible y sin valor en caché")) {
-            log.error("Error 503: Servicio externo no disponible y sin caché. Causa: {}", ex.getCause() != null ? ex.getCause().getMessage() : ex.getMessage(), ex);
-            ErrorResponse errorResponse = new ErrorResponse(
-                    HttpStatus.SERVICE_UNAVAILABLE.value(),
-                    HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase(),
-                    "El servicio externo no está disponible temporalmente y no se pudo recuperar de la caché. Intente más tarde.",
-                    exchange.getRequest().getURI().getPath()
-            );
-            return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse));
-        }
-        // Si no es nuestro error específico, lo dejamos pasar al handler genérico
-        log.error("Error RuntimeException no manejado específicamente: {}", ex.getMessage(), ex);
-        return handleGenericException(ex, exchange); // Reutiliza el handler genérico
+        log.error("Error 503: Capturada PercentageServiceUnavailableException. Mensaje: {}", ex.getMessage(), ex); // Loguea el mensaje y la traza completa
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.SERVICE_UNAVAILABLE.value(),
+                HttpStatus.SERVICE_UNAVAILABLE.getReasonPhrase(),
+                "El servicio externo no está disponible temporalmente y no se pudo recuperar de la caché. Intente más tarde.",
+                exchange.getRequest().getURI().getPath()
+        );
+        return Mono.just(ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorResponse));
     }
 
     // Manejador genérico para cualquier otra excepción no capturada antes

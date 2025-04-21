@@ -4,11 +4,10 @@ server:
 spring:
   application:
     name: felipearrano-challenge-api
-  cache:
-    cache-names:
-      - percentageCache
-    caffeine:
-      spec: expireAfterWrite=30m
+  data:
+    redis:
+      host: localhost
+      port: 6379
   r2dbc:
     url: r2dbc:postgresql://localhost:5432/history_db
     username: challenge_user
@@ -20,6 +19,7 @@ spring:
   sql:
     init:
       mode: always
+
 
 resilience4j.retry:
   instances:

@@ -10,27 +10,42 @@ services:
       - '5432:5432'
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck: # espera a que la app esté lista.
+    healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U challenge_user -d history_db" ]
       interval: 10s
       timeout: 5s
       retries: 5
 
+  redis:
+    image: 'redis:7-alpine'
+    container_name: tenpo_challengue_redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   challenge-api:
-    build: . # Construye la imagen usando el Dockerfile en el directorio actual '.'
+    build: .
     container_name: tenpo_challenge_api
     ports:
       - "8080:8080"
     environment:
-      # --- IMPORTANTE: Configuración para conectar a la BD DENTRO de Docker ---
-      # Usamos el nombre del servicio 'postgres' como hostname, no 'localhost'
       SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/history_db
       SPRING_R2DBC_USERNAME: challenge_user
       SPRING_R2DBC_PASSWORD: EZh6QsAvNv0secfm16ArcBq9ikKCJC+G
-      # Podrías añadir otros perfiles o variables si las necesitas:
-    depends_on: # Hace que este servicio espere al servicio postgres
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+    depends_on:
       postgres:
-        condition: service_healthy # Espera hasta que el healthcheck de postgres pase
+        condition: service_healthy
+      redis:
+        condition: service_healthy
 
 volumes:
   postgres_data:
+  redis_data:
