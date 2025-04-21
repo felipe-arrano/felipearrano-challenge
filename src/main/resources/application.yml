@@ -43,3 +43,9 @@ resilience4j.circuitbreaker:
       recordExceptions:
         - java.lang.RuntimeException
         - java.util.concurrent.TimeoutException
+
+resilience4j.ratelimiter:
+  instances:
+    apiGlobalLimiter:
+      limitForPeriod: 3
+      limitRefreshPeriod: 1m

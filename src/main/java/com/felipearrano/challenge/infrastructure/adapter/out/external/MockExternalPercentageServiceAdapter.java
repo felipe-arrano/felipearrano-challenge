@@ -1,6 +1,7 @@
 package com.felipearrano.challenge.infrastructure.adapter.out.external;
 
 import com.felipearrano.challenge.domain.port.out.ExternalPercentageServicePort;
+import com.felipearrano.challenge.infrastructure.adapter.out.external.exception.PercentageServiceUnavailableException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.reactor.circuitbreaker.operator.CircuitBreakerOperator;
@@ -87,7 +88,8 @@ public class MockExternalPercentageServiceAdapter implements ExternalPercentageS
         } else {
             log.error("No se puede obtener el valor del cache '{}'.", PERCENTAGE_CACHE_NAME);
 
-            return Mono.error(new RuntimeException("El porcentaje no esta disponible en el servicio externo, ni tampoco en el cache..", throwable));
+            return Mono.error(new PercentageServiceUnavailableException(
+                    "El porcentaje no esta disponible en el servicio externo y no hay valor en el cache.", throwable));
         }
     }
 }
