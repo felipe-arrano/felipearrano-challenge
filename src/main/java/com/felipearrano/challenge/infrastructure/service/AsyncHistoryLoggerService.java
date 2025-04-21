@@ -1,7 +1,7 @@
-package com.felipearrano.challenge.infrastructure.log;
+package com.felipearrano.challenge.infrastructure.service;
 
-import com.felipearrano.challenge.domain.model.HistoryLog;
-import com.felipearrano.challenge.domain.port.out.HistoryRepositoryPort;
+import com.felipearrano.challenge.domain.HistoryLog;
+import com.felipearrano.challenge.application.port.out.HistoryRepositoryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
@@ -22,13 +22,11 @@ public class AsyncHistoryLoggerService {
         log.info("Llamada asíncrona para guardar log: {}", historyLogData.id());
 
         try {
-            // Importante: Añadir manejo de errores para que no rompa el hilo @Async.
             historyRepositoryPort.saveLog(historyLogData)
                     .doOnError(e -> log.error("Error guardando log asíncrono con ID {}: {}", historyLogData.id(), e.getMessage()))
-                    .block(); // Espera a que Mono<Void> termine o falle
+                    .block();
             log.debug("Log asíncrono guardado exitosamente: {}", historyLogData.id());
         } catch (Exception e) {
-            // Captura cualquier excepción para evitar que el hilo @Async muera silenciosamente
             log.error("Excepción inesperada al guardar log asíncrono con ID {}: {}", historyLogData.id(), e.getMessage(), e);
         }
     }

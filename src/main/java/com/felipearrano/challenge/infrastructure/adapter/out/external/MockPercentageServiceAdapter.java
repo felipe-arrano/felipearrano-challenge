@@ -1,6 +1,6 @@
 package com.felipearrano.challenge.infrastructure.adapter.out.external;
 
-import com.felipearrano.challenge.domain.port.out.ExternalPercentageServicePort;
+import com.felipearrano.challenge.application.port.out.PercentageServicePort;
 import com.felipearrano.challenge.infrastructure.adapter.out.external.exception.PercentageServiceUnavailableException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
@@ -17,9 +17,9 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 
 @Component
-public class MockExternalPercentageServiceAdapter implements ExternalPercentageServicePort {
+public class MockPercentageServiceAdapter implements PercentageServicePort {
 
-    private static final Logger log = LoggerFactory.getLogger(MockExternalPercentageServiceAdapter.class);
+    private static final Logger log = LoggerFactory.getLogger(MockPercentageServiceAdapter.class);
     private static final double MOCK_PERCENTAGE = 10.0;
     private static final Duration MOCK_DELAY = Duration.ofMillis(500);
     private static final String PERCENTAGE_CACHE_NAME = "percentageCache";
@@ -30,9 +30,9 @@ public class MockExternalPercentageServiceAdapter implements ExternalPercentageS
     private final Retry retry;
     private final Cache cache;
 
-    public MockExternalPercentageServiceAdapter(CircuitBreakerRegistry circuitBreakerRegistry,
-                                                RetryRegistry retryRegistry,
-                                                CacheManager cacheManager){
+    public MockPercentageServiceAdapter(CircuitBreakerRegistry circuitBreakerRegistry,
+                                        RetryRegistry retryRegistry,
+                                        CacheManager cacheManager){
         this.circuitBreaker = circuitBreakerRegistry.circuitBreaker(RESILIENCE4J_INSTANCE_NAME);
         this.retry = retryRegistry.retry(RESILIENCE4J_INSTANCE_NAME);
         this.cache = cacheManager.getCache(PERCENTAGE_CACHE_NAME);

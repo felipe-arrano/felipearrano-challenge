@@ -1,8 +1,8 @@
-package com.felipearrano.challenge.infrastructure.adapter.in.rest.error;
+package com.felipearrano.challenge.infrastructure.adapter.in.web.error;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.felipearrano.challenge.infrastructure.adapter.in.rest.dto.ErrorResponse;
+import com.felipearrano.challenge.infrastructure.adapter.in.web.dto.ErrorResponse;
 import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

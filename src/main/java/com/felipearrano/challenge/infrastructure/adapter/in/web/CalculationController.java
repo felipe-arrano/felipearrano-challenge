@@ -1,8 +1,8 @@
-package com.felipearrano.challenge.infrastructure.adapter.in.rest;
+package com.felipearrano.challenge.infrastructure.adapter.in.web;
 
-import com.felipearrano.challenge.domain.port.in.CalculateSumUseCasePort;
-import com.felipearrano.challenge.infrastructure.adapter.in.rest.dto.CalculationResponse;
-import com.felipearrano.challenge.infrastructure.adapter.in.rest.dto.ErrorResponse;
+import com.felipearrano.challenge.application.port.in.CalculateSumUseCase;
+import com.felipearrano.challenge.infrastructure.adapter.in.web.dto.CalculationResponse;
+import com.felipearrano.challenge.infrastructure.adapter.in.web.dto.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,10 +33,10 @@ public class CalculationController {
 
     private static final Logger log = LoggerFactory.getLogger(CalculationController.class);
 
-    private final CalculateSumUseCasePort calculateSumUseCasePort;
+    private final CalculateSumUseCase calculateSumUseCase;
 
-    public CalculationController(CalculateSumUseCasePort calculateSumUseCasePort){
-        this.calculateSumUseCasePort = calculateSumUseCasePort;
+    public CalculationController(CalculateSumUseCase calculateSumUseCase){
+        this.calculateSumUseCase = calculateSumUseCase;
     }
 
     @Operation(
@@ -70,7 +70,7 @@ public class CalculationController {
 
         log.info("Recibida solicitud GET /sum-with-percentage con num1={}, num2={}", num1, num2);
 
-        return calculateSumUseCasePort.calculateSumWithPercentage(num1, num2)
+        return calculateSumUseCase.calculateSumWithPercentage(num1, num2)
                 .map(result -> {
                     CalculationResponse responseDto = new CalculationResponse(result);
                     log.info("Cálculo exitoso, devolviendo resultado: {}", result);

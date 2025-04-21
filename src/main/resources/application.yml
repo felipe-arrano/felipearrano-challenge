@@ -49,3 +49,4 @@ resilience4j.ratelimiter:
     apiGlobalLimiter:
       limitForPeriod: 3
       limitRefreshPeriod: 1m
+      timeoutDuration: 50ms

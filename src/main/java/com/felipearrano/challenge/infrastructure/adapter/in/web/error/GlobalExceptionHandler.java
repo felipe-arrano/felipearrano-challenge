@@ -1,8 +1,7 @@
-package com.felipearrano.challenge.infrastructure.adapter.in.rest.error;
+package com.felipearrano.challenge.infrastructure.adapter.in.web.error;
 
-import com.felipearrano.challenge.infrastructure.adapter.in.rest.dto.ErrorResponse;
+import com.felipearrano.challenge.infrastructure.adapter.in.web.dto.ErrorResponse;
 import com.felipearrano.challenge.infrastructure.adapter.out.external.exception.PercentageServiceUnavailableException;
-import io.github.resilience4j.ratelimiter.RequestNotPermitted;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;

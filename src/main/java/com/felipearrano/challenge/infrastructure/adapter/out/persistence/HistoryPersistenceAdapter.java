@@ -1,8 +1,8 @@
 package com.felipearrano.challenge.infrastructure.adapter.out.persistence;
 
 import java.util.List;
-import com.felipearrano.challenge.domain.port.out.HistoryRepositoryPort;
-import com.felipearrano.challenge.domain.model.HistoryLog;
+import com.felipearrano.challenge.application.port.out.HistoryRepositoryPort;
+import com.felipearrano.challenge.domain.HistoryLog;
 import com.felipearrano.challenge.infrastructure.adapter.out.persistence.entity.HistoryLogEntity;
 import com.felipearrano.challenge.infrastructure.adapter.out.persistence.mapper.HistoryLogMapper;
 import com.felipearrano.challenge.infrastructure.adapter.out.persistence.repository.ReactiveHistoryLogRepository;

@@ -1,6 +1,6 @@
-package com.felipearrano.challenge.domain.port.out;
+package com.felipearrano.challenge.application.port.out;
 
-import com.felipearrano.challenge.domain.model.HistoryLog;
+import com.felipearrano.challenge.domain.HistoryLog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import reactor.core.publisher.Mono;

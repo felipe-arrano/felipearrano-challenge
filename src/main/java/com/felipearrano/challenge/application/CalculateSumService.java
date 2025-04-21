@@ -1,7 +1,7 @@
-package com.felipearrano.challenge.application.usecase;
+package com.felipearrano.challenge.application;
 
-import com.felipearrano.challenge.domain.port.in.CalculateSumUseCasePort;
-import com.felipearrano.challenge.domain.port.out.ExternalPercentageServicePort;
+import com.felipearrano.challenge.application.port.in.CalculateSumUseCase;
+import com.felipearrano.challenge.application.port.out.PercentageServicePort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 @Service
-public class CalculateSumUseCase implements CalculateSumUseCasePort {
+public class CalculateSumService implements CalculateSumUseCase {
 
-    private static final Logger log = LoggerFactory.getLogger(CalculateSumUseCase.class);
+    private static final Logger log = LoggerFactory.getLogger(CalculateSumService.class);
 
-    private final ExternalPercentageServicePort externalPercentageServicePort;
+    private final PercentageServicePort percentageServicePort;
 
-    public CalculateSumUseCase(ExternalPercentageServicePort externalPercentageServicePort) {
-        this.externalPercentageServicePort = externalPercentageServicePort;
+    public CalculateSumService(PercentageServicePort percentageServicePort) {
+        this.percentageServicePort = percentageServicePort;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class CalculateSumUseCase implements CalculateSumUseCasePort {
             return Mono.error(new IllegalArgumentException("Los números de entrada no pueden ser nulos."));
         }
 
-        return externalPercentageServicePort.getPercentage()
+        return percentageServicePort.getPercentage()
                 .flatMap(percentage -> {
                     log.info("Porcentaje obtenido: {}%", percentage);
                     if (percentage == null) {

@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.domain.model;
+package com.felipearrano.challenge.domain;
 
 import java.time.Instant;
 import java.util.UUID;

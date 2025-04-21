@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.infrastructure.adapter.in.rest.dto;
+package com.felipearrano.challenge.infrastructure.adapter.in.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

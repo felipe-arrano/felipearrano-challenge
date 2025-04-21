@@ -1,4 +1,4 @@
-package com.felipearrano.challenge.infrastructure.adapter.in.rest.filter;
+package com.felipearrano.challenge.infrastructure.adapter.in.web.filter;
 
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
