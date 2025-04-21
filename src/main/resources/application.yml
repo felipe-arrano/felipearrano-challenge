@@ -20,6 +20,14 @@ spring:
     init:
       mode: always
 
+mock:
+  percentage-service:
+    percentage-value: 10.0
+    delay: 500ms
+    redis-key: "percentage:current"
+    redis-ttl: 30m
+    failure-rate: 0.5
+
 
 resilience4j.retry:
   instances:
