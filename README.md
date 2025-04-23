@@ -2,17 +2,26 @@
 
 ## 1. Descripción del proyecto
 
-Esta API REST fue desarrollada como solución al desafío técnico propuesto por Tenpo. Sus funcionalidades principales son:
+Esta API REST fue desarrollada como solución al desafío técnico propuesto por **Tenpo**. Sus funcionalidades principales son:
 
-* **Cálculo con Porcentaje Externo:** Expone un endpoint (`GET /api/v1/calculations/sum-with-percentage`) que suma dos números y aplica un porcentaje adicional obtenido de un servicio externo (simulado). Esta operación incluye manejo de resiliencia (Retry, Circuit Breaker) y una caché distribuida (Redis) con fallback para asegurar la disponibilidad y eficiencia.
-* **Auditoría y Consulta de Historial:** Registra de forma asíncrona los detalles de todas las llamadas a la API en una base de datos PostgreSQL. Expone un endpoint (`GET /api/v1/history`) para consultar este historial de forma paginada.
+* **Cálculo con Porcentaje Externo:** Expone un endpoint (`GET /api/v1/calculations/sum-with-percentage`) que suma dos números y aplica un porcentaje adicional obtenido de un servicio externo (simulado). Esta operación incluye manejo de resiliencia (**Retry**, **Circuit Breaker**) y una caché distribuida (**Redis**) con **fallback** para asegurar la disponibilidad y eficiencia.
+  
+    * Caché del porcentaje y resilencia:
+        * El porcentaje obtenido del servicio externo es almacenado en una caché **Redis**.
+        * El valor de la caché se utiliza en el caso de que el servicio externo falle 3 veces (3 intentos).
+        * Si no hay un valor previamente almacenado en caché, la API debe responder un error HTTP adecuado.
+        * El valor de la cache es válido por 30 minutos.
+        * (Bonus) Se implementa el patrón **Circuit Breaker** para aportar aún más residencia.
 
 
-El proyecto también implementa requisitos no funcionales clave como: 
-* Limitación de tasa de llamadas a la API(3 RPM), 
-* Manejo centralizado de errores
-* Documentación vía Swagger
-* Contenerizacion con Docker para facilitar su despliegue.
+* **Auditoría y Consulta de Historial:** Registra de forma asíncrona los detalles de todas las llamadas a la API en una base de datos **PostgreSQL**. Expone un endpoint (`GET /api/v1/history`) para consultar este historial de forma paginada. Al ser una funcionalidad asíncrona no afecta el tiempo de respuesta del servicio (endpoint) principal invocado, ni tampoco lo afecta si el registro falla.
+
+
+La aplicación también implementa los siguiente requerimientos: 
+* **Limitación de tasa de llamadas a la API:** La API soporta 3 RPM por defecto. Si se excede este umbral la aplicación devuelve un error HTTP 429 Too Many Request y un mensaje descriptivo.
+* **Manejo centralizado de errores:** Se manejan los errores 4XX y 5XX de manera centralizada y estandarizada.
+* **Documentación vía Swagger:** Se documenta y detalla el uso de los endpoints de la API.
+* **Contenerizacion con Docker:** Se incluyen las instrucciones para contenerizar la aplicación para que pueda ser replicada y escalada.
 
 
 ## 2. Instrucciones para ejecutar el servicio y la base de datos localmente
@@ -97,7 +106,3 @@ Las decisiones técnicas clave durante el desarrollo se tomaron buscando cumplir
 
 
 * **Documentación API:** Se usó `springdoc-openapi` por su fácil integración con Spring Boot/WebFlux para generar documentación estándar OpenAPI v3 y la interfaz Swagger UI.
-
-
-* **Testing:** Se combinaron tests unitarios (Mockito) para lógica aislada y tests de integración (`@SpringBootTest`, `WebTestClient`) para validar el flujo HTTP, manejo de errores y la integración de componentes, incluyendo la simulación de errores específicos requeridos.
-
