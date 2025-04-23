@@ -36,9 +36,14 @@ La aplicación también implementa los siguiente requerimientos:
 
 1.  **Clonar el repositorio:**
     ```bash
-    git clone <URL_DEL_REPOSITORIO>
-    cd <NOMBRE_DEL_DIRECTORIO>
+    git clone https://github.com/felipe-arrano/felipearrano-challenge.git
     ```
+
+1.  **Ingresar al repositorio:**
+    ```bash
+    cd felipearrano-challenge 
+    ```
+
 2.  **Construir y levantar los contenedores (API, PostgreSQL, Redis):**
     ```bash
     docker-compose up --build -d
@@ -49,13 +54,9 @@ La aplicación también implementa los siguiente requerimientos:
     * Redis estará accesible (para la API) en el puerto `6379` interno de Docker.
 
 3.  **Verificar el estado:**
-    Puedes usar `docker ps` para confirmar que los contenedores `challenge-api`, `postgres` y `redis` están corriendo.
+    
+Puedes usar `docker ps` para confirmar que los contenedores `challenge-api`, `postgres` y `redis` están corriendo. Con esto ya puedes probar la aplicación.
 
-4.  **Detener los servicios:**
-    ```bash
-    docker-compose down
-    ```
-    * Para eliminar también los volúmenes de datos (PostgreSQL): `docker-compose down --volumes`
 
 ## 3. Detalles sobre cómo interactuar con la API
 
@@ -75,7 +76,6 @@ Allí encontrarás la descripción detallada de cada endpoint, los parámetros r
     * **Propósito:** Obtiene el historial paginado de llamadas a la API.
     * **Query Params:** `page` (int >= 0, default 0), `size` (int >= 1, default 10).
 
-apartado de Postman.
 
 ## 4. Justificaciones técnicas tomadas
 
